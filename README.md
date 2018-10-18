@@ -14,7 +14,7 @@
 
 ---
 4. Navbar
-```js
+```jsx
 const Navbar = () => {
   return (
     <nav className="nav-wrapper grey darken-3">
@@ -32,7 +32,7 @@ const Navbar = () => {
 ```
 ---
 5. Dashboard
-```js
+```jsx
 class Dashboard extends Component {
   render() {
     return (
