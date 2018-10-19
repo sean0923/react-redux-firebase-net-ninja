@@ -10,7 +10,7 @@ const SignUp = () => {
         return (
           <div className="container">
             <form onSubmit={handleOnSubmit} className="white">
-              <h5 className="grey-text text-darken-3">Sign In</h5>
+              <h5 className="grey-text text-darken-3">Sign Up</h5>
 
               {dataForSignup.fullData.map(({ id, label, type }, field) => {
                 return (
@@ -22,7 +22,7 @@ const SignUp = () => {
               })}
 
               <div className="input-field">
-                <button className="btn pink lighten-1 z-depth-0">Login</button>
+                <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
               </div>
             </form>
           </div>
