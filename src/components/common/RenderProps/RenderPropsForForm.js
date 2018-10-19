@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 class RenderPropsForForm extends Component {
   state = {
@@ -6,7 +6,7 @@ class RenderPropsForForm extends Component {
   };
 
   handleOnChange = e => {
-    const { id, value } = e;
+    const { id, value } = e.target;
     this.setState({ [id]: value });
   };
 
@@ -20,7 +20,7 @@ class RenderPropsForForm extends Component {
     const { state, handleOnChange, handleOnSubmit } = this;
 
     return children({
-      ...state,
+      formState: { ...state },
       handleOnChange,
       handleOnSubmit,
     });
