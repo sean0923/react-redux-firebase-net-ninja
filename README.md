@@ -54,3 +54,11 @@ class Dashboard extends Component {
 ```
 ---
 6. 
+
+---
+10. Redux
+
+- authReducer
+- projectReducer
+  - id title contetn
+- rootReducer
