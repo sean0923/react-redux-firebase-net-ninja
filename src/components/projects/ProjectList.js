@@ -1,16 +1,22 @@
 import React from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import ProjectSummary from './ProjectSummary';
 
-const ProjectList = () => {
+const ProjectList = ({ projects }) => {
   return (
     <div className="project-list section">
-      {_.range(4).map(idx => {
-        return <ProjectSummary key={idx} />;
-      })}
+      {projects &&
+        projects.map((projectObj, idx) => {
+          return <ProjectSummary projectObj={projectObj} key={idx} />;
+        })}
     </div>
   );
 };
 
-export default ProjectList;
+const mapStateToProps = state => ({
+  projects: state.project.projects,
+});
+
+export default connect(mapStateToProps)(ProjectList);
