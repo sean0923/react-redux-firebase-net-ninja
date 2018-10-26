@@ -62,3 +62,8 @@ class Dashboard extends Component {
 - projectReducer
   - id title contetn
 - rootReducer
+
+--- 
+- connect to firebase, firestore
+
+- click summary direct user to project detail

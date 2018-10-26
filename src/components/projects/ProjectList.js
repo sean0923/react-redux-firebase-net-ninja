@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 import ProjectSummary from './ProjectSummary';
 
@@ -15,8 +17,10 @@ const ProjectList = ({ projects }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  projects: state.project.projects,
-});
+const mapStateToProps = state => {
+  return { projects: state.firestore.ordered.projects };
+};
 
-export default connect(mapStateToProps)(ProjectList);
+export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'projects' }]))(
+  ProjectList
+);
