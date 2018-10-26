@@ -67,3 +67,5 @@ class Dashboard extends Component {
 - connect to firebase, firestore
 
 - click summary direct user to project detail
+
+- connect project detail page to firestore
