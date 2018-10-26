@@ -11,9 +11,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.CREATE_PROEJCT: {
-      return _.cloneDeep(state).projects.concat({ ...action.project });
+    case types.CREATE_PROJECT: {
+      const projects = _.cloneDeep(state).projects.concat({ ...action.project });
+      return { projects };
     }
+
+    case types.CREATE_PROJECT_ERROR:
+      return state;
+
     default:
       return state;
   }

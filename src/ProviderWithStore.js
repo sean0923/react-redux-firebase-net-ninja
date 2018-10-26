@@ -6,6 +6,8 @@ import thunk from 'redux-thunk';
 import { reduxReactFirebase, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
 
+import configForFirebase from './config/configForFirebase';
+
 //
 import rootReducer from './reducers/rootReducer';
 
@@ -16,12 +18,20 @@ const middleware = [
   }),
 ];
 
-const isThereReduxDevtool = window.__REDUX_DEVTOOLS_EXTENSION__;
+const getComposeWithArgs = (...args) => {
+  if (process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+    return compose(...args);
+  }
 
-const composeWithArgs =
-  process.env.NODE_ENV === 'development' && isThereReduxDevtool
-    ? compose(applyMiddleware(...middleware), window.__REDUX_DEVTOOLS_EXTENSION__())
-    : compose(applyMiddleware(...middleware));
+  return compose(...args.slice(0, args.length - 1));
+};
+
+const composeWithArgs = getComposeWithArgs(
+  applyMiddleware(...middleware),
+  reduxFirestore(configForFirebase),
+  reduxReactFirebase(configForFirebase),
+  window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const ProviderWithStore = ({ children, initialState = {} }) => {
   const store = createStore(rootReducer, initialState, composeWithArgs);
