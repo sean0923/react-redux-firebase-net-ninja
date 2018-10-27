@@ -1,12 +1,20 @@
 import React from 'react';
 import RenderPropsForForm from '../common/RenderProps/RenderPropsForForm';
+import { connect } from 'react-redux';
 
 import * as dataForSignin from './dataForSignin';
+import * as actions from '../../actions/actions';
 
-const SignIn = () => {
+const SignIn = ({ signIn, authError }) => {
   return (
     <RenderPropsForForm initialFormState={dataForSignin.initialFormState}>
-      {({ formState, handleOnChange, handleOnSubmit }) => {
+      {({ formState, handleOnChange }) => {
+        const handleOnSubmit = e => {
+          e.preventDefault();
+          const { email, password } = formState;
+          signIn({ credential: { email, password } });
+        };
+
         return (
           <div className="container">
             <form onSubmit={handleOnSubmit} className="white">
@@ -21,6 +29,8 @@ const SignIn = () => {
                 );
               })}
 
+              {authError && <div className="red-text center">{authError}</div>}
+
               <div className="input-field">
                 <button className="btn pink lighten-1 z-depth-0">Login</button>
               </div>
@@ -32,4 +42,10 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError,
+  };
+};
+
+export default connect(mapStateToProps, actions)(SignIn);

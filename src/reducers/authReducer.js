@@ -1,13 +1,17 @@
 import * as types from '../actions/types';
 
 const initialState = {
-  projects: [],
+  authError: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case types.CREATE_PROJECT:
-    //   return state;
+    case types.LOGIN_ERROR:
+      return { ...state, authError: 'Login failed' };
+
+    case types.LOGIN_SUCCESS:
+      return { ...state, authError: null };
+
     default:
       return state;
   }
