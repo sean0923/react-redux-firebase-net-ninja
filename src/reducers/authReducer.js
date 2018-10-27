@@ -12,6 +12,10 @@ export default (state = initialState, action) => {
     case types.LOGIN_SUCCESS:
       return { ...state, authError: null };
 
+    case types.SIGNOUT_SUCCESS:
+      console.log('Signed Out');
+      return { ...state, authError: null };
+
     default:
       return state;
   }

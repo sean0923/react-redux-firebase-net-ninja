@@ -11,3 +11,14 @@ export const signIn = ({ credential }) => async (dispatch, getState, { getFireba
   console.log('response: ', response);
   dispatch({ type: types.LOGIN_SUCCESS });
 };
+
+export const signOut = () => async (dispatch, getState, { getFirebase }) => {
+  const firebase = getFirebase();
+
+  const response = firebase.auth().signOut().catch(err => {
+    dispatch({ type: types.SIGNOUT_ERROR, err });
+  });
+  console.log('response: ', response);
+
+  dispatch({ type: types.SIGNOUT_SUCCESS });
+};
