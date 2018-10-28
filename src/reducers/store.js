@@ -1,15 +1,10 @@
-import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-
 import { reduxReactFirebase, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
+import thunk from 'redux-thunk';
 
-import configForFirebase from './config/configForFirebase';
-
-//
-import rootReducer from './reducers/rootReducer';
+import configForFirebase from '../config/configForFirebase';
+import rootReducer from './rootReducer';
 
 const middleware = [
   thunk.withExtraArgument({
@@ -29,13 +24,10 @@ const getComposeWithArgs = (...args) => {
 const composeWithArgs = getComposeWithArgs(
   applyMiddleware(...middleware),
   reduxFirestore(configForFirebase),
-  reduxReactFirebase(configForFirebase),
+  reduxReactFirebase(configForFirebase, { attachAuthIsReady: true }),
   window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-const ProviderWithStore = ({ children, initialState = {} }) => {
-  const store = createStore(rootReducer, initialState, composeWithArgs);
-  return <Provider store={store}>{children}</Provider>;
-};
+const store = createStore(rootReducer, {}, composeWithArgs);
 
-export default ProviderWithStore;
+export default store;
