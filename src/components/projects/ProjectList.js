@@ -18,6 +18,7 @@ const ProjectList = ({ projects }) => {
 };
 
 const mapStateToProps = state => {
+  // console.log('state.firestore.ordered.projects: ', state.firestore.ordered.projects);
   return { projects: state.firestore.ordered.projects };
 };
 
