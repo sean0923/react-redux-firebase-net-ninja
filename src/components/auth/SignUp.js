@@ -1,12 +1,21 @@
 import React from 'react';
 import RenderPropsForForm from '../common/RenderProps/RenderPropsForForm';
+import { connect } from 'react-redux';
 
 import * as dataForSignup from './dataForSignup';
 
-const SignUp = () => {
+import * as actions from '../../actions/actions';
+
+const SignUp = ({ authError, signUp }) => {
   return (
     <RenderPropsForForm initialFormState={dataForSignup.initialFormState}>
-      {({ formState, handleOnChange, handleOnSubmit }) => {
+      {({ formState, handleOnChange }) => {
+        const handleOnSubmit = e => {
+          e.preventDefault();
+          const { email, password, lastName, firstName } = formState;
+          signUp({ userInfo: { email, password, lastName, firstName } });
+        };
+
         return (
           <div className="container">
             <form onSubmit={handleOnSubmit} className="white">
@@ -21,6 +30,8 @@ const SignUp = () => {
                 );
               })}
 
+              {authError && <div className="red-text center">{authError}</div>}
+
               <div className="input-field">
                 <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
               </div>
@@ -32,4 +43,10 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError,
+  };
+};
+
+export default connect(mapStateToProps, actions)(SignUp);
