@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import moment from 'moment';
 
 const ProjectDetails = props => {
   const { id } = props.match.params;
   const { project } = props;
 
   if (project) {
-    const { title, content, authorFirstName, authorLastName } = project;
+    const { title, content, authorFirstName, authorLastName, createdAt } = project;
 
     return (
       <div className="container section project-details">
@@ -24,7 +25,7 @@ const ProjectDetails = props => {
             <div>
               Posted by The {authorFirstName} {authorLastName}
             </div>
-            <div>18th October, 9pm</div>
+            <div>{moment(createdAt.toDate()).calendar()}</div>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ export const createProject = ({ project }) => async (dispatch, getState, { getFi
   const { profile, auth } = getState().firebase;
 
   const firestore = getFirestore();
+
   await firestore
     .collection('projects')
     .add({
