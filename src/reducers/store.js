@@ -24,7 +24,11 @@ const getComposeWithArgs = (...args) => {
 const composeWithArgs = getComposeWithArgs(
   applyMiddleware(...middleware),
   reduxFirestore(configForFirebase),
-  reduxReactFirebase(configForFirebase, { attachAuthIsReady: true }),
+  reduxReactFirebase(configForFirebase, {
+    useFirestoreForProfile: true,
+    userProfile: 'users',
+    attachAuthIsReady: true,
+  }),
   window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
