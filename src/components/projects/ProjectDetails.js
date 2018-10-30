@@ -39,6 +39,7 @@ const ProjectDetails = props => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('state: ', state);
   const { projects } = state.firestore.data;
   const { id } = ownProps.match.params;
 
@@ -47,6 +48,7 @@ const mapStateToProps = (state, ownProps) => {
   return { project };
 };
 
-export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'projects' }]))(
-  ProjectDetails
-);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'projects' }, { collection: 'users' }])
+)(ProjectDetails);

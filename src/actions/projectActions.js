@@ -1,24 +1,16 @@
 import * as types from './types';
-// import uniqid from 'uniqid';
 
-export const createProject = ({ project }) => async (
-  dispatch,
-  getState,
-  { getFirebase, getFirestore }
-) => {
-  // dispatch({
-  //   type: types.CREATE_PROJECT,
-  //   project,
-  // });
+export const createProject = ({ project }) => async (dispatch, getState, { getFirestore }) => {
+  const { profile, auth } = getState().firebase;
 
   const firestore = getFirestore();
-  const response = await firestore
+  await firestore
     .collection('projects')
     .add({
       ...project,
-      authorFirstName: 'Sean',
-      authorLastName: 'Hong',
-      authorId: 12345,
+      authorFirstName: profile.firstName,
+      authorLastName: profile.lastName,
+      authorId: auth.uid,
       createdAt: new Date(),
     })
     .catch(error => {
@@ -29,9 +21,5 @@ export const createProject = ({ project }) => async (
       });
     });
 
-  console.log('response: ', response);
-  dispatch({
-    type: types.CREATE_PROJECT,
-    project,
-  });
+  dispatch({ type: types.CREATE_PROJECT, project });
 };

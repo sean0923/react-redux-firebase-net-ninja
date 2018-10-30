@@ -7,13 +7,14 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../actions/actions';
 
-const CreateProject = ({ createProject }) => {
+const CreateProject = ({ createProject, history }) => {
   return (
     <RenderPropsForForm initialFormState={dataForCreateProject.initialFormState}>
       {({ formState, handleOnChange }) => {
         const handleOnSubmit = e => {
           e.preventDefault();
           createProject({ project: { ...formState } });
+          history.push('/');
         };
 
         return (
