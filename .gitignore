@@ -24,3 +24,5 @@ yarn-error.log*
 temp.js
 
 keys_dev.js
+
+.firebase
