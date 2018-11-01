@@ -26,3 +26,5 @@ temp.js
 keys_dev.js
 
 .firebase
+
+fbEnvStringGenerator.js
