@@ -8,13 +8,14 @@ import Notifications from './Notifications';
 
 class Dashboard extends Component {
   render() {
-    const { notifications } = this.props;
+    const { notifications, projects } = this.props;
+
     return (
       <div>
         <div className="dashboard container">
           <div className="row">
             <div className="col s12 m6">
-              <ProjectList />
+              <ProjectList projects={projects} />
             </div>
             <div className="col s12 m5 offset-m1">
               <Notifications notifications={notifications} />
@@ -26,10 +27,16 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = state => {
-  return { notifications: state.firestore.ordered.notifications };
+  return {
+    notifications: state.firestore.ordered.notifications,
+    projects: state.firestore.ordered.projects,
+  };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'notifications', limit: 3 }])
+  firestoreConnect([
+    { collection: 'projects', orderBy: ['createdAt', 'desc'] },
+    { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+  ])
 )(Dashboard);
