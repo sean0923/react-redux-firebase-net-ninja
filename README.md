@@ -1,6 +1,9 @@
 # React Redux Firebase 
 ### taught by Net Ninja
 
+## deployed at: 
+https://net-ninja-react-redux-fi-3f831.firebaseapp.com
+
 ---
 - Start with create react app
 - Get materialize UI
